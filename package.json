@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx nodemon index.js",
-    "dev": "nodemon --watch"
+    "start": "node index",
+    "production": "pm2 start index.js --name knowledge-backend"
   },
   "keywords": [],
   "author": "",
@@ -24,7 +24,8 @@
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
     "sequelize": "^6.23.0",
-    "supertest": "^6.2.4"
+    "supertest": "^6.2.4",
+    "nodemon": "^2.0.7"
   },
   "devDependencies": {
     "nodemon": "^2.0.20",
