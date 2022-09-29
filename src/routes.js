@@ -31,5 +31,4 @@ router.get("/users/:user_id/servicos", ServicoController.listServico);
 router.post("/users/:user_id/servicos", ServicoController.createServico);
 router.delete("/users/:user_id/servicos/:id", ServicoController.deleteServico);
 
-
 module.exports = router;
