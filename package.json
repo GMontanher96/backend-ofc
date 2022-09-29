@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index",
+    "start": "nodemon src/index",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "nodemon --watch",
     "production": "pm2 start index.js --name prestadores-backend teste"
   },
   "keywords": [],
