@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/index",
+    "production": "pm2 start index.js --name prestadores-backend teste"
   },
   "keywords": [],
   "author": "",
