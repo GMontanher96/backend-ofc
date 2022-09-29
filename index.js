@@ -1,11 +1,11 @@
 const express = require('express') 
-const routes = require('./routes')
+const routes = require('./src/routes')
 const helmet = require('helmet');
 const cors = require('cors');
 const app = express() 
 const bodyParser = require("body-parser");
 
-require('./database')
+require('./src/database')
 
 app.use(express.json());
 
