@@ -4,7 +4,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const app = express() 
 const bodyParser = require("body-parser");
-const db = require('./src/database')
+const db = require('./src/database');
 
 app.db = db
 
@@ -19,6 +19,10 @@ app.use(helmet());
 app.use(cors());
 app.use(routes)
 
-app.listen(port, () => {
-    console.info("Aplicação rodando em http://localhost:4000");
+
+db.sync({alter: true}).then(() => {
+    app.listen(port, () => {
+        console.info("Aplicação rodando em http://localhost:4000");
+    })
 })
+

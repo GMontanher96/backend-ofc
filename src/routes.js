@@ -24,7 +24,6 @@ router.delete("/users/:id", UserController.deleteUsers);
 
 // routes de enderecos
 router.get("/users/:user_id/enderecos", EnderecoController.listEndereco);
-router.get("/enderecos", EnderecoController.listEndereco);
 router.post("/users/:user_id/enderecos", EnderecoController.createEndereco);
 router.delete("/users/:user_id/enderecos/:id", EnderecoController.deleteEndereco);
 
@@ -34,8 +33,11 @@ router.post("/users/:user_id/contatos", ContatoController.createContato);
 router.delete("/users/:user_id/contatos/:id", ContatoController.deleteContato);
 
 // routes de servicos
-router.get("/users/:user_id/servicos", ServicoController.listServico);
+router.get("/servicos", ServicoController.listServico);
 router.post("/users/:user_id/servicos", ServicoController.createServico);
+router.get("/servicos/:id", ServicoController.getServico);
+router.get("/users/:user_id/servicos/:id", ServicoController.getServico);
+router.post("/users/:user_id/servicos/:id", ServicoController.listServico);
 router.delete("/users/:user_id/servicos/:id", ServicoController.deleteServico);
 
 module.exports = router;

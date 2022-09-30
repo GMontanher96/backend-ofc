@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
+    "dev": "nodemon index",
     "production": "pm2 start index.js --name knowledge-backend"
   },
   "keywords": [],

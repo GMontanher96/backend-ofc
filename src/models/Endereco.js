@@ -20,7 +20,7 @@ class Endereco extends Model {
 
   static associate(models) {
     // relacionamento entre tabelas.
-    this.belongsTo(models.User, { foreignKey: "user_id", as: "user_endereco" });
+    this.belongsTo(models.User, { foreignKey: "user_id", as: "user" });
   }
 }
 

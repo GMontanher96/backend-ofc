@@ -12,6 +12,7 @@ class Servico extends Model {
         disponibilidade: DataTypes.STRING,
         tipo: DataTypes.STRING,
         valor: DataTypes.DECIMAL,
+        cidade: DataTypes.STRING,
       },
       {
         sequelize,

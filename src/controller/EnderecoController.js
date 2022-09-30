@@ -3,23 +3,21 @@ const User = require("../models/User");
 
 module.exports = {
   async listEndereco(req, res) {
-
     try {
-
       const { user_id } = req.params;
-      const users = await User.findAll();
-  
-      const user = await User.findByPk(user_id, {
-        include: { association: "enderecos" },
-      });
-      if (!users) {
-        res.status(200).json({ message: "Não existe usuário cadastrado" });
+
+      const user = await User.findByPk(user_id);
+
+      if (!user) {
+        throw new Error("Não existe usuário cadastrado");
       }
-      res.status(200).json({ users, user });
+      const enderecos = await Endereco.findAll({ where: { user_id } });
+
+      res.status(200).send(enderecos);
     } catch (error) {
-      res.status(400).json({ error });
+      console.log(error);
+      res.status(400).json({ ...error });
     }
-   
   },
   async createEndereco(req, res) {
     const { user_id } = req.params;
@@ -29,7 +27,7 @@ module.exports = {
     const user = await User.findByPk(user_id);
 
     if (!user) {
-      return res.status(400).json({ error: "User não existe" });
+      throw new Error("Não existe usuário cadastrado");
     }
 
     const enderecos = await Endereco.create({
@@ -47,7 +45,7 @@ module.exports = {
   },
   async deleteEndereco(req, res) {
     const { user_id } = req.params;
-    const { id } = req.params
+    const { id } = req.params;
 
     const user = await User.findByPk(user_id);
 
@@ -55,13 +53,12 @@ module.exports = {
       return res.status(400).json({ error: "User não existe" });
     }
 
-    const endereco = await Endereco.findOne({ where: { id }})
+    const endereco = await Endereco.findOne({ where: { id } });
     if (!endereco) {
-        res.status(401).json({ message: 'Endereço não encontrado '})
+      res.status(401).json({ message: "Endereço não encontrado " });
     } else {
-         await Endereco.destroy({ where: { id } })
-        res.status(200).json({ ok: true });
+      await Endereco.destroy({ where: { id } });
+      res.status(200).json({ ok: true });
     }
-  }
-  }
- 
+  },
+};
