@@ -3,10 +3,17 @@ const UserController = require("./controller/UserController");
 const ServicoController = require("./controller/ServicoController");
 const ContatoController = require("./controller/ContatoController");
 const EnderecoController = require("./controller/EnderecoController");
+const { me, login, register, dashboard } = require("./controller/AuthController");
+const auth = require('./middlewares/auth');
 
 const router = Router();
 
+// auth carlos 
 
+router.get("/me", auth, me);
+router.post("/signin", login);
+router.post("/register", register);
+router.get("/dashboard", auth, dashboard);
 
 // routes de usuários
 
