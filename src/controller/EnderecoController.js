@@ -43,6 +43,34 @@ module.exports = {
 
     return res.json(enderecos);
   },
+
+
+  async updateEndereco(req, res) {
+    const { user_id } = req.params;
+    const { endereco, bairro, cep, cidade, estado, numero, referencia } =
+      req.body;
+
+    const user = await User.findByPk(user_id);
+
+    if (!user) {
+      throw new Error("Não existe usuário cadastrado");
+    }
+
+    const enderecos = await Endereco.update({
+      endereco,
+      bairro,
+      cep,
+      cidade,
+      estado,
+      numero,
+      referencia,
+      user_id,
+    });
+
+    return res.json(enderecos);
+  },
+
+
   async deleteEndereco(req, res) {
     const { user_id } = req.params;
     const { id } = req.params;

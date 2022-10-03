@@ -25,6 +25,7 @@ router.delete("/users/:id", UserController.deleteUsers);
 // routes de enderecos
 router.get("/users/:user_id/enderecos", EnderecoController.listEndereco);
 router.post("/users/:user_id/enderecos", EnderecoController.createEndereco);
+router.put("/users/:user_id/enderecos", EnderecoController.updateEndereco);
 router.delete("/users/:user_id/enderecos/:id", EnderecoController.deleteEndereco);
 
 // routes de contatos
