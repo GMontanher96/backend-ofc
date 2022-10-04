@@ -28,7 +28,21 @@ module.exports = {
   },
 
   async getServico(req, res) {
-    res.status(500).send();
+    try {
+      const { user_id } = req.params;
+
+      const user = await User.findByPk(user_id);
+
+      if (!user) {
+        throw new Error("Não existe usuário cadastrado");
+      }
+      const servicos = await Servico.findAll({ where: { user_id } });
+
+      res.status(200).send(servicos);
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({ ...error });
+    }
   },
   
   async createServico(req, res) {
@@ -75,6 +89,20 @@ module.exports = {
       res.status(400).json({ error });
     }
   },
+  async updateServico(req, res) {
+    try {
+      const { id } = req.params;
+
+      const servico = await Servico.findByPk(id);      
+      servico.set(req.body);
+      await servico.save();
+
+      res.status(200).send(servico);
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({ ...error });
+    }
+},
   async deleteServico(req, res) {
     const { user_id } = req.params;
     const { id } = req.params;

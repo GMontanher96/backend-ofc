@@ -30,6 +30,21 @@ module.exports = {
 
     return res.json(contatos);
   },
+
+  async updateContato(req, res) {
+    try {
+      const { id } = req.params;
+
+      const contato = await Contato.findByPk(id);      
+      contato.set(req.body);
+      await contato.save();
+
+      res.status(200).send(contato);
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({ ...error });
+    }
+},
   async deleteContato(req, res) {
     const { user_id } = req.params;
     const { id } = req.params

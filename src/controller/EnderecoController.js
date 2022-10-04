@@ -24,7 +24,7 @@ module.exports = {
     const { endereco, bairro, cep, cidade, estado, numero, referencia } =
       req.body;
 
-    const user = await User.findByPk(user_id);
+    const user = await User.findOne(user_id);
 
     if (!user) {
       throw new Error("Não existe usuário cadastrado");
@@ -46,31 +46,19 @@ module.exports = {
 
 
   async updateEndereco(req, res) {
-    const { user_id } = req.params;
-    const { endereco, bairro, cep, cidade, estado, numero, referencia } =
-      req.body;
+    try {
+      const { id } = req.params;
 
-    const user = await User.findByPk(user_id);
+      const endereco = await Endereco.findByPk(id);      
+      endereco.set(req.body);
+      await endereco.save();
 
-    if (!user) {
-      throw new Error("Não existe usuário cadastrado");
+      res.status(200).send(endereco);
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({ ...error });
     }
-
-    const enderecos = await Endereco.update({
-      endereco,
-      bairro,
-      cep,
-      cidade,
-      estado,
-      numero,
-      referencia,
-      user_id,
-    });
-
-    return res.json(enderecos);
-  },
-
-
+},
   async deleteEndereco(req, res) {
     const { user_id } = req.params;
     const { id } = req.params;
