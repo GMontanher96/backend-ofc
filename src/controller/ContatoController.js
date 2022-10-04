@@ -4,13 +4,21 @@ const User = require("../models/User");
 module.exports = {
 
   async listContato (req, res) {
-    const { user_id } = req.params;
+    try {
+      const { user_id } = req.params;
 
-    const user = await User.findByPk(user_id, {
-      include: { association: 'contatos' }
-    });
+      const user = await User.findByPk(user_id);
 
-    return res.json(user);
+      if (!user) {
+        throw new Error("Não existe usuário cadastrado");
+      }
+      const contatos = await Contato.findAll({ where: { user_id } });
+
+      res.status(200).send(contatos);
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({ ...error });
+    }
   },
   async createContato(req, res) {
     const { user_id } = req.params;
